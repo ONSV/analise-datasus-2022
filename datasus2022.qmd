@@ -1,0 +1,88 @@
+---
+title: "Template onsvpub"
+format: onsvpub-html
+author: 
+  - Pedro Augusto Borges dos Santos
+  - João Pedro Melani Saraiva
+date: last-modified
+---
+
+## Introdução
+
+Este é um template do [Quarto Markdown](quarto.org) com os padrões de formatação do [Observatório Nacional de Segurança Viária](onsv.org.br). Com o template é possível exportar os relatórios técnicos e outros estudos do Observatório em três formatos: html, pdf ou docx.
+
+### Importando o template
+
+Para importar e começar a utilização do template em sua máquina, é necessário utilizar o `quarto` pelo terminal, com o seguinte comando:
+
+```bash
+quarto use template onsv/onsvpub
+
+```
+
+## Como utilizar
+
+### Formatos
+
+Para selecionar o formato desejado, é necessário inserir um entre os três tipos na parte `format:` do header YAML:
+
+```
+title: título do documento
+format: onsvpub-html
+author: nome do autor
+date: last-modified
+```
+
+Segue a lista dos três formatos:
+
+- `onsvpub-html`
+- `onsvpub-pdf`
+- `onsvpub-docx`
+
+Com o `quarto` no terminal também é possível renderizar com o comando:
+
+```bash
+quarto render documento.qmd --to onsvpub-html
+```
+
+em que `onsvpub-html` pode ser substituido por `onsvpub-pdf` ou `onsvpub-docx`.
+
+### Exemplos
+
+Aqui são apresentados alguns exemplos de aplicação do template.
+
+#### Gráficos
+
+Segue um exemplo de gráfico feito com o `ggplot2` e `onsvplot`. Ao utilizar um chunk de código, o comportamento padrão do template é ocultar o código. Mas é possível re-abilitar com `echo: true` nas opções do chunk. Aqui também segue um exemplo da possibilidade de fazer uma referência cruzada (@fig-temp).
+
+
+```{r fig-temp}
+#| fig-cap: "plot"
+#| echo: true
+
+library(ggplot2)
+library(onsvplot)
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(aes(color = factor(cyl))) +
+  theme_onsv() +
+  scale_discrete_onsv()
+```
+
+#### Tabelas
+
+As tabelas elaboradas em markdown são exibidas com o estilo do template, seguindo os parâmetros definidos em css. Segue um exemplo na @tbl-temp.
+
+```{r}
+#| label: tbl-temp
+#| tbl-cap: "Tabela"
+
+head(mtcars)
+```
+
+### Dúvidas e sugestões
+
+Para dúvidas ou sugestões, envie e-mail para pedro.borges@onsv.org.br ou abra uma issue em [github.com/onsv/onsvpub](https://github.com/onsv/onsvpub)
+
+
+
