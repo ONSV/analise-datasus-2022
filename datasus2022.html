@@ -9,7 +9,7 @@
 <meta name="author" content="Pedro Augusto Borges dos Santos">
 <meta name="author" content="João Pedro Melani Saraiva">
 
-<title>Template onsvpub</title>
+<title>Dados Consolidados de Óbitos no Trânsito Brasileiro - 2022</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -69,36 +35,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="datasus2022_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="datasus2022_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="datasus2022_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="datasus2022_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="datasus2022_files/libs/plotly-binding-4.10.3/plotly.js"></script>
+<script src="datasus2022_files/libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="datasus2022_files/libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="datasus2022_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="datasus2022_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="datasus2022_files/libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="datasus2022_files/libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 </head>
 
-<body>
+<body class="fullcontent">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Índice</h2>
-   
-  <ul>
-  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="header-section-number">1</span> Introdução</a>
-  <ul class="collapse">
-  <li><a href="#importando-o-template" id="toc-importando-o-template" class="nav-link" data-scroll-target="#importando-o-template"><span class="header-section-number">1.1</span> Importando o template</a></li>
-  </ul></li>
-  <li><a href="#como-utilizar" id="toc-como-utilizar" class="nav-link" data-scroll-target="#como-utilizar"><span class="header-section-number">2</span> Como utilizar</a>
-  <ul class="collapse">
-  <li><a href="#formatos" id="toc-formatos" class="nav-link" data-scroll-target="#formatos"><span class="header-section-number">2.1</span> Formatos</a></li>
-  <li><a href="#exemplos" id="toc-exemplos" class="nav-link" data-scroll-target="#exemplos"><span class="header-section-number">2.2</span> Exemplos</a></li>
-  <li><a href="#dúvidas-e-sugestões" id="toc-dúvidas-e-sugestões" class="nav-link" data-scroll-target="#dúvidas-e-sugestões"><span class="header-section-number">2.3</span> Dúvidas e sugestões</a></li>
-  </ul></li>
-  </ul>
-</nav>
-</div>
+
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Template onsvpub</h1>
+<h1 class="title">Dados Consolidados de Óbitos no Trânsito Brasileiro - 2022</h1>
 </div>
 
 
@@ -128,204 +85,537 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="introdução" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">1</span> Introdução</h2>
-<p>Este é um template do <a href="quarto.org">Quarto Markdown</a> com os padrões de formatação do <a href="onsv.org.br">Observatório Nacional de Segurança Viária</a>. Com o template é possível exportar os relatórios técnicos e outros estudos do Observatório em três formatos: html, pdf ou docx.</p>
-<section id="importando-o-template" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="importando-o-template"><span class="header-section-number">1.1</span> Importando o template</h3>
-<p>Para importar e começar a utilização do template em sua máquina, é necessário utilizar o <code>quarto</code> pelo terminal, com o seguinte comando:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> use template onsv/onsvpub</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="introdução" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introdução</h1>
+<p>No dia 27 de dezembro de 2023 o Ministério da Saúde disponibilizou a base de dados consolidada do Sistema de Informações de Mortes (SIM) para o ano de 2022. Assim, o presente documento apresenta uma análise dos óbitos no trânsito no Brasil, com foco na evolução desse cenário entre 2021 e 2022.</p>
 </section>
-</section>
-<section id="como-utilizar" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="como-utilizar"><span class="header-section-number">2</span> Como utilizar</h2>
-<section id="formatos" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="formatos"><span class="header-section-number">2.1</span> Formatos</h3>
-<p>Para selecionar o formato desejado, é necessário inserir um entre os três tipos na parte <code>format:</code> do header YAML:</p>
-<pre><code>title: título do documento
-format: onsvpub-html
-author: nome do autor
-date: last-modified</code></pre>
-<p>Segue a lista dos três formatos:</p>
-<ul>
-<li><code>onsvpub-html</code></li>
-<li><code>onsvpub-pdf</code></li>
-<li><code>onsvpub-docx</code></li>
-</ul>
-<p>Com o <code>quarto</code> no terminal também é possível renderizar com o comando:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render documento.qmd <span class="at">--to</span> onsvpub-html</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>em que <code>onsvpub-html</code> pode ser substituido por <code>onsvpub-pdf</code> ou <code>onsvpub-docx</code>.</p>
-</section>
-<section id="exemplos" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="exemplos"><span class="header-section-number">2.2</span> Exemplos</h3>
-<p>Aqui são apresentados alguns exemplos de aplicação do template.</p>
-<section id="gráficos" class="level4" data-number="2.2.1">
-<h4 data-number="2.2.1" class="anchored" data-anchor-id="gráficos"><span class="header-section-number">2.2.1</span> Gráficos</h4>
-<p>Segue um exemplo de gráfico feito com o <code>ggplot2</code> e <code>onsvplot</code>. Ao utilizar um chunk de código, o comportamento padrão do template é ocultar o código. Mas é possível re-abilitar com <code>echo: true</code> nas opções do chunk. Aqui também segue um exemplo da possibilidade de fazer uma referência cruzada (<a href="#fig-temp" class="quarto-xref">Figura&nbsp;1</a>).</p>
+<section id="cenário-brasileiro" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Cenário brasileiro</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(onsvplot)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_onsv</span>() <span class="sc">+</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_discrete_onsv</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-temp" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-temp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1: plot
-</figcaption>
-<div aria-describedby="fig-temp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="datasus2022_files/figure-html/fig-temp-1.png" class="img-fluid figure-img" width="1800">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-eab8ff21dea2d20dd0e9" style="width:100%;height:400px;"></div>
+<script type="application/json" data-for="htmlwidget-eab8ff21dea2d20dd0e9">{"x":{"data":[{"orientation":"v","width":[0.89999999999999991,0.90000000000000013,0.90000000000000036,0.90000000000000036,0.90000000000000036,0.90000000000000036,0.90000000000000036,0.89999999999999947,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858],"base":[0,0,0,0,0,0,0,0,0,0,0,0],"x":[1,2,3,4,5,6,7,8,9,10,11,12],"y":[43256,44812,42266,43780,38651,37345,35375,32655,31945,32716,33813,33894],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,73,109,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,2,3,4,5,6,7,8,9,10,11,12],"y":[42056,43612,41066,42580,37451,36145,34175,31455,30745,31516,32613,32694],"text":[43256,44812,42266,43780,38651,37345,35375,32655,31945,32716,33813,33894],"hovertext":["","","","","","","","","","","",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.77042172932584,"r":6.6417600664175991,"b":24.7181178688028,"l":36.529680365296798},"paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"Helvetica","size":13.283520132835198},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,12.6],"tickmode":"array","ticktext":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"tickvals":[1,2,3,4.0000000000000009,5,6,7.0000000000000009,8,9,10,11,12],"categoryorder":"array","categoryarray":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.3208800332087995,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Helvetica","size":10.62681610626816},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(51,51,51,1)","family":"Helvetica","size":13.283520132835198}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-2240.5999999999999,47052.599999999999],"tickmode":"array","ticktext":["0","10000","20000","30000","40000"],"tickvals":[0,10000,20000,29999.999999999996,40000],"categoryorder":"array","categoryarray":["0","10000","20000","30000","40000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.3208800332087995,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Helvetica","size":10.62681610626816},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.60379636967432737,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":"rgba(51,51,51,1)","family":"Helvetica","size":13.283520132835198}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(51,51,51,1)","family":"Helvetica","size":10.62681610626816}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"102dc116a9d20e":{"x":{},"y":{},"type":"bar"},"102dc12ab5caed":{"x":{},"y":{},"label":{}}},"cur_data":"102dc116a9d20e","visdat":{"102dc116a9d20e":["function (y) ","x"],"102dc12ab5caed":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
-</figure>
 </div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-110a837b9ce25d17f2ea" style="width:100%;height:400px;"></div>
+<script type="application/json" data-for="htmlwidget-110a837b9ce25d17f2ea">{"x":{"data":[{"x":[3,3,null,5,5,null,6,6,null,7,7,null,8,8,null,9,9],"y":[0,-0.056815138802106577,null,0,-0.11715395157606213,null,0,-0.033789552663579206,null,0,-0.052751372339001207,null,0,-0.076890459363957595,null,0,-0.021742459041494411],"text":"","type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(31,161,73,1)","dash":"solid"},"hoveron":"points","name":"down","legendgroup":"down","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,1,null,2,2,null,4,4,null,10,10,null,11,11,null,12,12],"y":[0,0.0096162823265801521,null,0,0.035971888292953579,null,0,0.035820754270572089,null,0,0.024135232430740335,null,0,0.033530994009047563,null,0,0.0023955283470854403],"text":"","type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(213,31,41,1)","dash":"solid"},"hoveron":"points","name":"up","legendgroup":"up","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[3,5,6,7,8,9],"y":[-0.056815138802106577,-0.11715395157606213,-0.033789552663579206,-0.052751372339001207,-0.076890459363957595,-0.021742459041494411],"text":"","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,255,255,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(31,161,73,1)"}},"hoveron":"points","name":"down","legendgroup":"down","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,2,4,10,11,12],"y":[0.0096162823265801521,0.035971888292953579,0.035820754270572089,0.024135232430740335,0.033530994009047563,0.0023955283470854403],"text":"","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,255,255,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(213,31,41,1)"}},"hoveron":"points","name":"up","legendgroup":"up","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2.6200000000000001,4.6200000000000001,5.6200000000000001,6.6200000000000001,7.6200000000000001,8.6199999999999992],"y":[-0.056815138802106577,-0.11715395157606213,-0.033789552663579206,-0.052751372339001207,-0.076890459363957595,-0.021742459041494411],"text":["-5,68%","-11,72%","-3,38%","-5,28%","-7,69%","-2,17%"],"hovertext":["","","","","",""],"textfont":{"size":11.338582677165356,"color":"rgba(31,161,73,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"down","legendgroup":"down","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.62,1.6200000000000001,3.6200000000000001,9.6199999999999992,10.619999999999999,11.619999999999999],"y":[0.0096162823265801521,0.035971888292953579,0.035820754270572089,0.024135232430740335,0.033530994009047563,0.0023955283470854403],"text":["0,96%","3,60%","3,58%","2,41%","3,35%","0,24%"],"hovertext":["","","","","",""],"textfont":{"size":11.338582677165356,"color":"rgba(213,31,41,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"up","legendgroup":"up","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.77042172932584,"r":6.6417600664175991,"b":24.7181178688028,"l":31.216272312162719},"paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"Helvetica","size":13.283520132835198},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,12.6],"tickmode":"array","ticktext":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"tickvals":[1,2,3,4.0000000000000009,5,6,7.0000000000000009,8,9,10,11,12],"categoryorder":"array","categoryarray":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.3208800332087995,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Helvetica","size":10.62681610626816},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.60379636967432737,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(51,51,51,1)","family":"Helvetica","size":13.283520132835198}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.13200000000000001,0.13200000000000001],"tickmode":"array","ticktext":["-10%","-5%","0%","5%","10%"],"tickvals":[-0.10000000000000002,-0.050000000000000017,0,0.049999999999999989,0.099999999999999978],"categoryorder":"array","categoryarray":["-10%","-5%","0%","5%","10%"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.3208800332087995,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Helvetica","size":10.62681610626816},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.60379636967432737,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":"rgba(51,51,51,1)","family":"Helvetica","size":13.283520132835198}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(51,51,51,1)","family":"Helvetica","size":10.62681610626816}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"102dc12b7ad421":{"x":{},"y":{},"colour":{},"xend":{},"yend":{},"type":"scatter"},"102dc17fb1b792":{"x":{},"y":{},"colour":{}},"102dc110b153b3":{"x":{},"y":{},"colour":{},"label":{}}},"cur_data":"102dc12b7ad421","visdat":{"102dc12b7ad421":["function (y) ","x"],"102dc17fb1b792":["function (y) ","x"],"102dc110b153b3":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
-<section id="tabelas" class="level4" data-number="2.2.2">
-<h4 data-number="2.2.2" class="anchored" data-anchor-id="tabelas"><span class="header-section-number">2.2.2</span> Tabelas</h4>
-<p>As tabelas elaboradas em markdown são exibidas com o estilo do template, seguindo os parâmetros definidos em css. Segue um exemplo na <a href="#tbl-temp" class="quarto-xref">Tabela&nbsp;1</a>.</p>
+<section id="óbitos-por-regiões" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Óbitos por regiões</h1>
 <div class="cell">
-<div id="tbl-temp" class="cell quarto-float anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-temp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabela&nbsp;1: Tabela
-</figcaption>
-<div aria-describedby="tbl-temp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div class="kable-table">
-<table class="do-not-create-environment cell table table-sm table-striped small">
-<colgroup>
-<col style="width: 26%">
-<col style="width: 7%">
-<col style="width: 5%">
-<col style="width: 7%">
-<col style="width: 5%">
-<col style="width: 7%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 7%">
-<col style="width: 7%">
-</colgroup>
+<div id="zfntzoqfuk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zfntzoqfuk table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zfntzoqfuk thead, #zfntzoqfuk tbody, #zfntzoqfuk tfoot, #zfntzoqfuk tr, #zfntzoqfuk td, #zfntzoqfuk th {
+  border-style: none;
+}
+
+#zfntzoqfuk p {
+  margin: 0;
+  padding: 0;
+}
+
+#zfntzoqfuk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zfntzoqfuk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zfntzoqfuk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zfntzoqfuk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zfntzoqfuk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zfntzoqfuk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zfntzoqfuk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zfntzoqfuk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zfntzoqfuk .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zfntzoqfuk .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#zfntzoqfuk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zfntzoqfuk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zfntzoqfuk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zfntzoqfuk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zfntzoqfuk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zfntzoqfuk .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zfntzoqfuk .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zfntzoqfuk .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zfntzoqfuk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zfntzoqfuk .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zfntzoqfuk .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zfntzoqfuk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zfntzoqfuk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zfntzoqfuk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zfntzoqfuk .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zfntzoqfuk .gt_left {
+  text-align: left;
+}
+
+#zfntzoqfuk .gt_center {
+  text-align: center;
+}
+
+#zfntzoqfuk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zfntzoqfuk .gt_font_normal {
+  font-weight: normal;
+}
+
+#zfntzoqfuk .gt_font_bold {
+  font-weight: bold;
+}
+
+#zfntzoqfuk .gt_font_italic {
+  font-style: italic;
+}
+
+#zfntzoqfuk .gt_super {
+  font-size: 65%;
+}
+
+#zfntzoqfuk .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zfntzoqfuk .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zfntzoqfuk .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zfntzoqfuk .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zfntzoqfuk .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zfntzoqfuk .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zfntzoqfuk .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">mpg</th>
-<th style="text-align: right;">cyl</th>
-<th style="text-align: right;">disp</th>
-<th style="text-align: right;">hp</th>
-<th style="text-align: right;">drat</th>
-<th style="text-align: right;">wt</th>
-<th style="text-align: right;">qsec</th>
-<th style="text-align: right;">vs</th>
-<th style="text-align: right;">am</th>
-<th style="text-align: right;">gear</th>
-<th style="text-align: right;">carb</th>
+<tr class="header gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="2021" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">2021</th>
+<th id="2022" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">2022</th>
+<th id="Variação" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Variação</th>
+<th id="Variação percentual" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Variação percentual</th>
 </tr>
 </thead>
-<tbody>
+<tbody class="gt_table_body">
 <tr class="odd">
-<td style="text-align: left;">Mazda RX4</td>
-<td style="text-align: right;">21.0</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">160</td>
-<td style="text-align: right;">110</td>
-<td style="text-align: right;">3.90</td>
-<td style="text-align: right;">2.620</td>
-<td style="text-align: right;">16.46</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
+<td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Norte</td>
+<td class="gt_row gt_right" headers="stub_1_1 ano_2021">3.193</td>
+<td class="gt_row gt_right" headers="stub_1_1 ano_2022">3.436</td>
+<td class="gt_row gt_right" headers="stub_1_1 var">243</td>
+<td class="gt_row gt_right" headers="stub_1_1 var_perc" style="background-color: #E58165; color: #FFFFFF">7,61%</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Mazda RX4 Wag</td>
-<td style="text-align: right;">21.0</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">160</td>
-<td style="text-align: right;">110</td>
-<td style="text-align: right;">3.90</td>
-<td style="text-align: right;">2.875</td>
-<td style="text-align: right;">17.02</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
+<td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Sul</td>
+<td class="gt_row gt_right" headers="stub_1_2 ano_2021">5.752</td>
+<td class="gt_row gt_right" headers="stub_1_2 ano_2022">5.898</td>
+<td class="gt_row gt_right" headers="stub_1_2 var">146</td>
+<td class="gt_row gt_right" headers="stub_1_2 var_perc" style="background-color: #FCDFCE; color: #000000">2,54%</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Datsun 710</td>
-<td style="text-align: right;">22.8</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">108</td>
-<td style="text-align: right;">93</td>
-<td style="text-align: right;">3.85</td>
-<td style="text-align: right;">2.320</td>
-<td style="text-align: right;">18.61</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1</td>
+<td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Centro-Oeste</td>
+<td class="gt_row gt_right" headers="stub_1_3 ano_2021">3.882</td>
+<td class="gt_row gt_right" headers="stub_1_3 ano_2022">3.966</td>
+<td class="gt_row gt_right" headers="stub_1_3 var">84</td>
+<td class="gt_row gt_right" headers="stub_1_3 var_perc" style="background-color: #FCE3D4; color: #000000">2,16%</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Hornet 4 Drive</td>
-<td style="text-align: right;">21.4</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">258</td>
-<td style="text-align: right;">110</td>
-<td style="text-align: right;">3.08</td>
-<td style="text-align: right;">3.215</td>
-<td style="text-align: right;">19.44</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1</td>
+<td id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Nordeste</td>
+<td class="gt_row gt_right" headers="stub_1_4 ano_2021">9.799</td>
+<td class="gt_row gt_right" headers="stub_1_4 ano_2022">9.824</td>
+<td class="gt_row gt_right" headers="stub_1_4 var">25</td>
+<td class="gt_row gt_right" headers="stub_1_4 var_perc" style="background-color: #F8F5F3; color: #000000">0,26%</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Hornet Sportabout</td>
-<td style="text-align: right;">18.7</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">360</td>
-<td style="text-align: right;">175</td>
-<td style="text-align: right;">3.15</td>
-<td style="text-align: right;">3.440</td>
-<td style="text-align: right;">17.02</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Valiant</td>
-<td style="text-align: right;">18.1</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">225</td>
-<td style="text-align: right;">105</td>
-<td style="text-align: right;">2.76</td>
-<td style="text-align: right;">3.460</td>
-<td style="text-align: right;">20.22</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1</td>
+<td id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Sudeste</td>
+<td class="gt_row gt_right" headers="stub_1_5 ano_2021">11.187</td>
+<td class="gt_row gt_right" headers="stub_1_5 ano_2022">10.770</td>
+<td class="gt_row gt_right" headers="stub_1_5 var">−417</td>
+<td class="gt_row gt_right" headers="stub_1_5 var_perc" style="background-color: #C2DDEC; color: #000000">−3,73%</td>
 </tr>
 </tbody>
 </table>
+
 </div>
-</div>
-</div>
-</figure>
 </div>
 </div>
 </section>
+<section id="óbitos-por-unidades-da-federação" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Óbitos por unidades da federação</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-eebb6e0b4a1bd4adf7a9" style="width:100%;height:400px;"></div>
+<script type="application/json" data-for="htmlwidget-eebb6e0b4a1bd4adf7a9">{"x":{"data":[{"orientation":"h","width":[0.89999999999999858,0.90000000000000013,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.90000000000000036,0.89999999999999947,0.89999999999999858,0.90000000000000036,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.90000000000000036,0.90000000000000036,0.89999999999999991,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.90000000000000036,0.89999999999999858],"base":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"x":[95,644,97,412,2336,1307,307,813,1674,1401,1235,666,3276,2662,837,1470,1509,930,438,1684,1885,442,128,1406,397,5211,549],"y":[24,2,23,20,19,21,26,12,17,4,8,10,5,14,13,25,6,7,1,18,16,22,27,11,15,3,9],"text":["nome_uf_ocor: Acre<br />ano_2021:   95","nome_uf_ocor: Alagoas<br />ano_2021:  644","nome_uf_ocor: Amapá<br />ano_2021:   97","nome_uf_ocor: Amazonas<br />ano_2021:  412","nome_uf_ocor: Bahia<br />ano_2021: 2336","nome_uf_ocor: Ceará<br />ano_2021: 1307","nome_uf_ocor: Distrito Federal<br />ano_2021:  307","nome_uf_ocor: Espírito Santo<br />ano_2021:  813","nome_uf_ocor: Goiás<br />ano_2021: 1674","nome_uf_ocor: Maranhão<br />ano_2021: 1401","nome_uf_ocor: Mato Grosso<br />ano_2021: 1235","nome_uf_ocor: Mato Grosso do Sul<br />ano_2021:  666","nome_uf_ocor: Minas Gerais<br />ano_2021: 3276","nome_uf_ocor: Paraná<br />ano_2021: 2662","nome_uf_ocor: Paraíba<br />ano_2021:  837","nome_uf_ocor: Pará<br />ano_2021: 1470","nome_uf_ocor: Pernambuco<br />ano_2021: 1509","nome_uf_ocor: Piauí<br />ano_2021:  930","nome_uf_ocor: Rio Grande do Norte<br />ano_2021:  438","nome_uf_ocor: Rio Grande do Sul<br />ano_2021: 1684","nome_uf_ocor: Rio de Janeiro<br />ano_2021: 1885","nome_uf_ocor: Rondônia<br />ano_2021:  442","nome_uf_ocor: Roraima<br />ano_2021:  128","nome_uf_ocor: Santa Catarina<br />ano_2021: 1406","nome_uf_ocor: Sergipe<br />ano_2021:  397","nome_uf_ocor: São Paulo<br />ano_2021: 5211","nome_uf_ocor: Tocantins<br />ano_2021:  549"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,73,109,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[395,944,397,712,2636,1607,607,1113,1974,1701,1535,966,3576,2962,1137,1770,1809,1230,738,1984,2185,742,428,1706,697,null,849],"y":[24,2,23,20,19,21,26,12,17,4,8,10,5,14,13,25,6,7,1,18,16,22,27,11,15,3,9],"text":[95,644,97,412,2336,1307,307,813,1674,1401,1235,666,3276,2662,837,1470,1509,930,438,1684,1885,442,128,1406,397,5211,549],"hovertext":["nome_uf_ocor: Acre<br />ano_2021:   95<br />ano_2021:   95","nome_uf_ocor: Alagoas<br />ano_2021:  644<br />ano_2021:  644","nome_uf_ocor: Amapá<br />ano_2021:   97<br />ano_2021:   97","nome_uf_ocor: Amazonas<br />ano_2021:  412<br />ano_2021:  412","nome_uf_ocor: Bahia<br />ano_2021: 2336<br />ano_2021: 2336","nome_uf_ocor: Ceará<br />ano_2021: 1307<br />ano_2021: 1307","nome_uf_ocor: Distrito Federal<br />ano_2021:  307<br />ano_2021:  307","nome_uf_ocor: Espírito Santo<br />ano_2021:  813<br />ano_2021:  813","nome_uf_ocor: Goiás<br />ano_2021: 1674<br />ano_2021: 1674","nome_uf_ocor: Maranhão<br />ano_2021: 1401<br />ano_2021: 1401","nome_uf_ocor: Mato Grosso<br />ano_2021: 1235<br />ano_2021: 1235","nome_uf_ocor: Mato Grosso do Sul<br />ano_2021:  666<br />ano_2021:  666","nome_uf_ocor: Minas Gerais<br />ano_2021: 3276<br />ano_2021: 3276","nome_uf_ocor: Paraná<br />ano_2021: 2662<br />ano_2021: 2662","nome_uf_ocor: Paraíba<br />ano_2021:  837<br />ano_2021:  837","nome_uf_ocor: Pará<br />ano_2021: 1470<br />ano_2021: 1470","nome_uf_ocor: Pernambuco<br />ano_2021: 1509<br />ano_2021: 1509","nome_uf_ocor: Piauí<br />ano_2021:  930<br />ano_2021:  930","nome_uf_ocor: Rio Grande do Norte<br />ano_2021:  438<br />ano_2021:  438","nome_uf_ocor: Rio Grande do Sul<br />ano_2021: 1684<br />ano_2021: 1684","nome_uf_ocor: Rio de Janeiro<br />ano_2021: 1885<br />ano_2021: 1885","nome_uf_ocor: Rondônia<br />ano_2021:  442<br />ano_2021:  442","nome_uf_ocor: Roraima<br />ano_2021:  128<br />ano_2021:  128","nome_uf_ocor: Santa Catarina<br />ano_2021: 1406<br />ano_2021: 1406","nome_uf_ocor: Sergipe<br />ano_2021:  397<br />ano_2021:  397","nome_uf_ocor: São Paulo<br />ano_2021: 5211<br />ano_2021: 5211","nome_uf_ocor: Tocantins<br />ano_2021:  549<br />ano_2021:  549"],"textfont":{"size":11.338582677165356,"color":"rgba(26,26,26,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999858,0.90000000000000013,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.90000000000000036,0.89999999999999947,0.89999999999999858,0.90000000000000036,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.90000000000000036,0.90000000000000036,0.89999999999999991,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.90000000000000036,0.89999999999999858],"base":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"x":[103,577,105,438,2473,1402,346,822,1729,1339,1220,671,3170,2718,847,1609,1469,918,392,1759,1931,475,157,1421,406,4847,549],"y":[24,2,23,20,19,21,26,12,17,4,8,10,5,14,13,25,6,7,1,18,16,22,27,11,15,3,9],"text":["nome_uf_ocor: Acre<br />ano_2022:  103","nome_uf_ocor: Alagoas<br />ano_2022:  577","nome_uf_ocor: Amapá<br />ano_2022:  105","nome_uf_ocor: Amazonas<br />ano_2022:  438","nome_uf_ocor: Bahia<br />ano_2022: 2473","nome_uf_ocor: Ceará<br />ano_2022: 1402","nome_uf_ocor: Distrito Federal<br />ano_2022:  346","nome_uf_ocor: Espírito Santo<br />ano_2022:  822","nome_uf_ocor: Goiás<br />ano_2022: 1729","nome_uf_ocor: Maranhão<br />ano_2022: 1339","nome_uf_ocor: Mato Grosso<br />ano_2022: 1220","nome_uf_ocor: Mato Grosso do Sul<br />ano_2022:  671","nome_uf_ocor: Minas Gerais<br />ano_2022: 3170","nome_uf_ocor: Paraná<br />ano_2022: 2718","nome_uf_ocor: Paraíba<br />ano_2022:  847","nome_uf_ocor: Pará<br />ano_2022: 1609","nome_uf_ocor: Pernambuco<br />ano_2022: 1469","nome_uf_ocor: Piauí<br />ano_2022:  918","nome_uf_ocor: Rio Grande do Norte<br />ano_2022:  392","nome_uf_ocor: Rio Grande do Sul<br />ano_2022: 1759","nome_uf_ocor: Rio de Janeiro<br />ano_2022: 1931","nome_uf_ocor: Rondônia<br />ano_2022:  475","nome_uf_ocor: Roraima<br />ano_2022:  157","nome_uf_ocor: Santa Catarina<br />ano_2022: 1421","nome_uf_ocor: Sergipe<br />ano_2022:  406","nome_uf_ocor: São Paulo<br />ano_2022: 4847","nome_uf_ocor: Tocantins<br />ano_2022:  549"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,73,109,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[403,877,405,738,2773,1702,646,1122,2029,1639,1520,971,3470,3018,1147,1909,1769,1218,692,2059,2231,775,457,1721,706,5147,849],"y":[24,2,23,20,19,21,26,12,17,4,8,10,5,14,13,25,6,7,1,18,16,22,27,11,15,3,9],"text":[103,577,105,438,2473,1402,346,822,1729,1339,1220,671,3170,2718,847,1609,1469,918,392,1759,1931,475,157,1421,406,4847,549],"hovertext":["nome_uf_ocor: Acre<br />ano_2022:  103<br />ano_2022:  103","nome_uf_ocor: Alagoas<br />ano_2022:  577<br />ano_2022:  577","nome_uf_ocor: Amapá<br />ano_2022:  105<br />ano_2022:  105","nome_uf_ocor: Amazonas<br />ano_2022:  438<br />ano_2022:  438","nome_uf_ocor: Bahia<br />ano_2022: 2473<br />ano_2022: 2473","nome_uf_ocor: Ceará<br />ano_2022: 1402<br />ano_2022: 1402","nome_uf_ocor: Distrito Federal<br />ano_2022:  346<br />ano_2022:  346","nome_uf_ocor: Espírito Santo<br />ano_2022:  822<br />ano_2022:  822","nome_uf_ocor: Goiás<br />ano_2022: 1729<br />ano_2022: 1729","nome_uf_ocor: Maranhão<br />ano_2022: 1339<br />ano_2022: 1339","nome_uf_ocor: Mato Grosso<br />ano_2022: 1220<br />ano_2022: 1220","nome_uf_ocor: Mato Grosso do Sul<br />ano_2022:  671<br />ano_2022:  671","nome_uf_ocor: Minas Gerais<br />ano_2022: 3170<br />ano_2022: 3170","nome_uf_ocor: Paraná<br />ano_2022: 2718<br />ano_2022: 2718","nome_uf_ocor: Paraíba<br />ano_2022:  847<br />ano_2022:  847","nome_uf_ocor: Pará<br />ano_2022: 1609<br />ano_2022: 1609","nome_uf_ocor: Pernambuco<br />ano_2022: 1469<br />ano_2022: 1469","nome_uf_ocor: Piauí<br />ano_2022:  918<br />ano_2022:  918","nome_uf_ocor: Rio Grande do Norte<br />ano_2022:  392<br />ano_2022:  392","nome_uf_ocor: Rio Grande do Sul<br />ano_2022: 1759<br />ano_2022: 1759","nome_uf_ocor: Rio de Janeiro<br />ano_2022: 1931<br />ano_2022: 1931","nome_uf_ocor: Rondônia<br />ano_2022:  475<br />ano_2022:  475","nome_uf_ocor: Roraima<br />ano_2022:  157<br />ano_2022:  157","nome_uf_ocor: Santa Catarina<br />ano_2022: 1421<br />ano_2022: 1421","nome_uf_ocor: Sergipe<br />ano_2022:  406<br />ano_2022:  406","nome_uf_ocor: São Paulo<br />ano_2022: 4847<br />ano_2022: 4847","nome_uf_ocor: Tocantins<br />ano_2022:  549<br />ano_2022:  549"],"textfont":{"size":11.338582677165356,"color":"rgba(26,26,26,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.90000000000000013,0.90000000000000036,0.89999999999999947,0.90000000000000036,0.90000000000000036,0.90000000000000036,0.89999999999999991,0.90000000000000036,0.89999999999999858],"base":[-0.10403726708074534,-0.044254104211277658,-0.012145748987854251,-0.03235653235653236,-0.026507620941020542,-0.012903225806451613,-0.1050228310502283,-0.069852235655344458,0],"x":[0.10403726708074534,0.044254104211277658,0.012145748987854251,0.03235653235653236,0.026507620941020542,0.012903225806451613,0.1050228310502283,0.069852235655344458,0],"y":[2,4,8,5,6,7,1,3,9],"text":["nome_uf_ocor: Alagoas<br />var_perc: -0.104037267<br />signal: down","nome_uf_ocor: Maranhão<br />var_perc: -0.044254104<br />signal: down","nome_uf_ocor: Mato Grosso<br />var_perc: -0.012145749<br />signal: down","nome_uf_ocor: Minas Gerais<br />var_perc: -0.032356532<br />signal: down","nome_uf_ocor: Pernambuco<br />var_perc: -0.026507621<br />signal: down","nome_uf_ocor: Piauí<br />var_perc: -0.012903226<br />signal: down","nome_uf_ocor: Rio Grande do Norte<br />var_perc: -0.105022831<br />signal: down","nome_uf_ocor: São Paulo<br />var_perc: -0.069852236<br />signal: down","nome_uf_ocor: Tocantins<br />var_perc:  0.000000000<br />signal: down"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(31,161,73,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"down","legendgroup":"down","showlegend":true,"xaxis":"x3","yaxis":"y3","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858,0.89999999999999858],"base":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"x":[0.084210526315789472,0.08247422680412371,0.063106796116504854,0.058647260273972601,0.07268553940321347,0.12703583061889251,0.01107011070110701,0.032855436081242535,0.0075075075075075074,0.021036814425244178,0.011947431302270013,0.094557823129251706,0.04453681710213777,0.02440318302387268,0.074660633484162894,0.2265625,0.010668563300142247,0.022670025188916875],"y":[24,23,20,19,21,26,12,17,10,14,13,25,18,16,22,27,11,15],"text":["nome_uf_ocor: Acre<br />var_perc:  0.084210526<br />signal: up","nome_uf_ocor: Amapá<br />var_perc:  0.082474227<br />signal: up","nome_uf_ocor: Amazonas<br />var_perc:  0.063106796<br />signal: up","nome_uf_ocor: Bahia<br />var_perc:  0.058647260<br />signal: up","nome_uf_ocor: Ceará<br />var_perc:  0.072685539<br />signal: up","nome_uf_ocor: Distrito Federal<br />var_perc:  0.127035831<br />signal: up","nome_uf_ocor: Espírito Santo<br />var_perc:  0.011070111<br />signal: up","nome_uf_ocor: Goiás<br />var_perc:  0.032855436<br />signal: up","nome_uf_ocor: Mato Grosso do Sul<br />var_perc:  0.007507508<br />signal: up","nome_uf_ocor: Paraná<br />var_perc:  0.021036814<br />signal: up","nome_uf_ocor: Paraíba<br />var_perc:  0.011947431<br />signal: up","nome_uf_ocor: Pará<br />var_perc:  0.094557823<br />signal: up","nome_uf_ocor: Rio Grande do Sul<br />var_perc:  0.044536817<br />signal: up","nome_uf_ocor: Rio de Janeiro<br />var_perc:  0.024403183<br />signal: up","nome_uf_ocor: Rondônia<br />var_perc:  0.074660633<br />signal: up","nome_uf_ocor: Roraima<br />var_perc:  0.226562500<br />signal: up","nome_uf_ocor: Santa Catarina<br />var_perc:  0.010668563<br />signal: up","nome_uf_ocor: Sergipe<br />var_perc:  0.022670025<br />signal: up"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(213,31,41,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"up","legendgroup":"up","showlegend":true,"xaxis":"x3","yaxis":"y3","hoverinfo":"text","frame":null}],"layout":{"xaxis":{"domain":[0,0.3133333333333333],"automargin":true,"type":"linear","autorange":false,"range":[-265,5565],"tickmode":"array","ticktext":["0","2000","4000"],"tickvals":[0,2000,4000],"categoryorder":"array","categoryarray":["0","2000","4000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.3208800332087995,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Helvetica","size":10.62681610626816},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.60379636967432737,"zeroline":false,"anchor":"y","hoverformat":".2f"},"xaxis2":{"domain":[0.35333333333333333,0.64666666666666661],"automargin":true,"type":"linear","autorange":false,"range":[-265,5565],"tickmode":"array","ticktext":["0","2000","4000"],"tickvals":[0,2000,4000],"categoryorder":"array","categoryarray":["0","2000","4000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.3208800332087995,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Helvetica","size":10.62681610626816},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.60379636967432737,"zeroline":false,"anchor":"y2","hoverformat":".2f"},"xaxis3":{"domain":[0.68666666666666665,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.27500000000000002,0.27500000000000002],"tickmode":"array","ticktext":["-20%","-10%","0%","10%","20%"],"tickvals":[-0.20000000000000004,-0.10000000000000003,0,0.099999999999999978,0.19999999999999996],"categoryorder":"array","categoryarray":["-20%","-10%","0%","10%","20%"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.3208800332087995,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Helvetica","size":10.62681610626816},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.60379636967432737,"zeroline":false,"anchor":"y3","hoverformat":".2f"},"yaxis3":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,27.600000000000001],"tickmode":"array","ticktext":["Rio Grande do Norte","Alagoas","São Paulo","Maranhão","Minas Gerais","Pernambuco","Piauí","Mato Grosso","Tocantins","Mato Grosso do Sul","Santa Catarina","Espírito Santo","Paraíba","Paraná","Sergipe","Rio de Janeiro","Goiás","Rio Grande do Sul","Bahia","Amazonas","Ceará","Rondônia","Amapá","Acre","Pará","Distrito Federal","Roraima"],"tickvals":[1,2,3,4.0000000000000009,5,6,7,8,9,10,11,12,13,14,15.000000000000002,16,17,18,19,20,21,22,23,24,25,26,27],"categoryorder":"array","categoryarray":["Rio Grande do Norte","Alagoas","São Paulo","Maranhão","Minas Gerais","Pernambuco","Piauí","Mato Grosso","Tocantins","Mato Grosso do Sul","Santa Catarina","Espírito Santo","Paraíba","Paraná","Sergipe","Rio de Janeiro","Goiás","Rio Grande do Sul","Bahia","Amazonas","Ceará","Rondônia","Amapá","Acre","Pará","Distrito Federal","Roraima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.3208800332087995,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x3","hoverformat":".2f"},"yaxis2":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,27.600000000000001],"tickmode":"array","ticktext":["Rio Grande do Norte","Alagoas","São Paulo","Maranhão","Minas Gerais","Pernambuco","Piauí","Mato Grosso","Tocantins","Mato Grosso do Sul","Santa Catarina","Espírito Santo","Paraíba","Paraná","Sergipe","Rio de Janeiro","Goiás","Rio Grande do Sul","Bahia","Amazonas","Ceará","Rondônia","Amapá","Acre","Pará","Distrito Federal","Roraima"],"tickvals":[1,2,3,4.0000000000000009,5,6,7,8,9,10,11,12,13,14,15.000000000000002,16,17,18,19,20,21,22,23,24,25,26,27],"categoryorder":"array","categoryarray":["Rio Grande do Norte","Alagoas","São Paulo","Maranhão","Minas Gerais","Pernambuco","Piauí","Mato Grosso","Tocantins","Mato Grosso do Sul","Santa Catarina","Espírito Santo","Paraíba","Paraná","Sergipe","Rio de Janeiro","Goiás","Rio Grande do Sul","Bahia","Amazonas","Ceará","Rondônia","Amapá","Acre","Pará","Distrito Federal","Roraima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.3208800332087995,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x2","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,27.600000000000001],"tickmode":"array","ticktext":["Rio Grande do Norte","Alagoas","São Paulo","Maranhão","Minas Gerais","Pernambuco","Piauí","Mato Grosso","Tocantins","Mato Grosso do Sul","Santa Catarina","Espírito Santo","Paraíba","Paraná","Sergipe","Rio de Janeiro","Goiás","Rio Grande do Sul","Bahia","Amazonas","Ceará","Rondônia","Amapá","Acre","Pará","Distrito Federal","Roraima"],"tickvals":[1,2,3,4.0000000000000009,5,6,7,8,9,10,11,12,13,14,15.000000000000002,16,17,18,19,20,21,22,23,24,25,26,27],"categoryorder":"array","categoryarray":["Rio Grande do Norte","Alagoas","São Paulo","Maranhão","Minas Gerais","Pernambuco","Piauí","Mato Grosso","Tocantins","Mato Grosso do Sul","Santa Catarina","Espírito Santo","Paraíba","Paraná","Sergipe","Rio de Janeiro","Goiás","Rio Grande do Sul","Bahia","Amazonas","Ceará","Rondônia","Amapá","Acre","Pará","Distrito Federal","Roraima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.3208800332087995,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Helvetica","size":10.62681610626816},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","hoverformat":".2f"},"annotations":[{"x":0.14999999999999999,"y":1,"text":"2021","xref":"paper","yref":"paper","xanchor":"center","yanchor":"bottom","showarrow":false},{"x":0.5,"y":1,"text":"2022","xref":"paper","yref":"paper","xanchor":"center","yanchor":"bottom","showarrow":false},{"x":0.84999999999999998,"y":1,"text":"Variação percentual","xref":"paper","yref":"paper","xanchor":"center","yanchor":"bottom","showarrow":false}],"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.3133333333333333,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.35333333333333333,"x1":0.64666666666666661,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.68666666666666665,"x1":1,"y0":0,"y1":1}],"images":[],"margin":{"t":26.77042172932584,"r":6.6417600664175991,"b":24.7181178688028,"l":9.9626400996263982},"paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"Helvetica","size":13.283520132835198},"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(51,51,51,1)","family":"Helvetica","size":10.62681610626816}},"hovermode":"closest","barmode":"relative"},"attrs":{"102dc13530cde6":{"x":{},"y":{},"type":"bar"},"102dc13f982110":{"x":{},"y":{},"label":{}},"102dc17bec1641":{"x":{},"y":{},"type":"bar"},"102dc1709f4231":{"x":{},"y":{},"label":{}},"102dc17c715c3b":{"x":{},"y":{},"fill":{},"type":"bar"}},"source":"A","config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"subplot":true,"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 </section>
-<section id="dúvidas-e-sugestões" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="dúvidas-e-sugestões"><span class="header-section-number">2.3</span> Dúvidas e sugestões</h3>
-<p>Para dúvidas ou sugestões, envie e-mail para pedro.borges@onsv.org.br ou abra uma issue em <a href="https://github.com/onsv/onsvpub">github.com/onsv/onsvpub</a></p>
+<section id="óbitos-por-modal-das-vítimas" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Óbitos por modal das vítimas</h1>
 </section>
+<section id="pirâmide-etária-das-vítimas" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Pirâmide etária das vítimas</h1>
 </section>
 
 </main>

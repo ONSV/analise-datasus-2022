@@ -1,88 +1,246 @@
 ---
-title: "Template onsvpub"
-format: onsvpub-html
+title: "Dados Consolidados de Óbitos no Trânsito Brasileiro - 2022"
+format: 
+  onsvpub-html:
+    echo: false
+    fig-width: 6
+    fig-height: 3.7
+    fig-dpi: 300
 author: 
   - Pedro Augusto Borges dos Santos
   - João Pedro Melani Saraiva
 date: last-modified
 ---
 
-## Introdução
+```{r}
+#| label: setup
+#| include: false
 
-Este é um template do [Quarto Markdown](quarto.org) com os padrões de formatação do [Observatório Nacional de Segurança Viária](onsv.org.br). Com o template é possível exportar os relatórios técnicos e outros estudos do Observatório em três formatos: html, pdf ou docx.
-
-### Importando o template
-
-Para importar e começar a utilização do template em sua máquina, é necessário utilizar o `quarto` pelo terminal, com o seguinte comando:
-
-```bash
-quarto use template onsv/onsvpub
-
-```
-
-## Como utilizar
-
-### Formatos
-
-Para selecionar o formato desejado, é necessário inserir um entre os três tipos na parte `format:` do header YAML:
-
-```
-title: título do documento
-format: onsvpub-html
-author: nome do autor
-date: last-modified
-```
-
-Segue a lista dos três formatos:
-
-- `onsvpub-html`
-- `onsvpub-pdf`
-- `onsvpub-docx`
-
-Com o `quarto` no terminal também é possível renderizar com o comando:
-
-```bash
-quarto render documento.qmd --to onsvpub-html
-```
-
-em que `onsvpub-html` pode ser substituido por `onsvpub-pdf` ou `onsvpub-docx`.
-
-### Exemplos
-
-Aqui são apresentados alguns exemplos de aplicação do template.
-
-#### Gráficos
-
-Segue um exemplo de gráfico feito com o `ggplot2` e `onsvplot`. Ao utilizar um chunk de código, o comportamento padrão do template é ocultar o código. Mas é possível re-abilitar com `echo: true` nas opções do chunk. Aqui também segue um exemplo da possibilidade de fazer uma referência cruzada (@fig-temp).
-
-
-```{r fig-temp}
-#| fig-cap: "plot"
-#| echo: true
-
-library(ggplot2)
+library(tidyverse)
+library(gt)
+library(roadtrafficdeaths)
+library(plotly)
 library(onsvplot)
 
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point(aes(color = factor(cyl))) +
-  theme_onsv() +
-  scale_discrete_onsv()
+theme_set(theme_onsv())
+
+rtdeaths_tbl <- as_tibble(rtdeaths)
 ```
 
-#### Tabelas
+# Introdução
 
-As tabelas elaboradas em markdown são exibidas com o estilo do template, seguindo os parâmetros definidos em css. Segue um exemplo na @tbl-temp.
+No dia 27 de dezembro de 2023 o Ministério da Saúde disponibilizou a base de dados consolidada do Sistema de Informações de Mortes (SIM) para o ano de 2022. Assim, o presente documento apresenta uma análise dos óbitos no trânsito no Brasil, com foco na evolução desse cenário entre 2021 e 2022.
+
+# Cenário brasileiro
 
 ```{r}
-#| label: tbl-temp
-#| tbl-cap: "Tabela"
 
-head(mtcars)
+mortes_ano_decada <- rtdeaths_tbl |> 
+  count(ano_ocorrencia) |> 
+  drop_na() |> 
+  mutate(var = (n - lag(n)) / lag(n)) |>
+  filter(ano_ocorrencia > 2010) |> 
+  mutate(ano_ocorrencia = as.character(ano_ocorrencia))
+
+plot_anual_abs <- ggplot(mortes_ano_decada, aes(x = ano_ocorrencia, y = n)) +
+  geom_col(fill = onsv_palette$blue) +
+  labs(x = NULL, y = NULL) +
+  theme_onsv(
+    base_size = 10,
+    panel.grid.minor.y = element_blank(),
+    panel.grid.major.x = element_blank()
+  ) +
+  geom_text(aes(label = n), nudge_y = -1200, size = 3, color = "white")
+
+p1 <- ggplotly(plot_anual_abs, tooltip = NULL)
+p1
 ```
 
-### Dúvidas e sugestões
+```{r}
 
-Para dúvidas ou sugestões, envie e-mail para pedro.borges@onsv.org.br ou abra uma issue em [github.com/onsv/onsvpub](https://github.com/onsv/onsvpub)
+plot_anual_var <- mortes_ano_decada |>
+  mutate(var_signal = if_else(var > 0, "up", "down")) |> 
+  ggplot(aes(x = ano_ocorrencia, y = var, color = var_signal)) +
+  geom_segment(
+    aes(x = ano_ocorrencia, xend = ano_ocorrencia, y = 0, yend = var)
+  ) +
+  geom_point(pch = 21, fill = "white", size = 1.5) +
+  scale_color_manual(
+    values = c("down" = onsv_palette$green, "up" = onsv_palette$red)
+  ) +
+  scale_y_continuous(limits = c(-0.12, 0.12), labels = scales::percent) +
+  theme_onsv(base_size = 10) +
+  theme(
+    panel.grid.minor.y = element_blank(),
+    legend.position = "none"
+  ) +
+  geom_text(
+    aes(
+      label = scales::percent(var, accuracy = 0.01, decimal.mark = ",")
+    ), 
+    nudge_x = -0.38, 
+    size = 3
+  ) +
+  labs(x = NULL, y = NULL)
 
+p2 <- ggplotly(plot_anual_var, tooltip = NULL)
+p2
+```
 
+# Óbitos por regiões
 
+```{r}
+var_regiao <- rtdeaths_tbl |> 
+  count(ano_ocorrencia, nome_regiao_ocor) |> 
+  filter(ano_ocorrencia > 2020) |> 
+  pivot_wider(
+    names_from = ano_ocorrencia, 
+    values_from = n, 
+    names_prefix = "ano_"
+  ) |> 
+  mutate(var = ano_2022 - ano_2021, var_perc = var / ano_2021)
+
+gt_regiao <- var_regiao |> 
+  arrange(-var_perc) |>
+  gt(rowname_col = "nome_regiao_ocor") |> 
+  fmt_number(
+    columns = ano_2021:var,
+    sep_mark = ".",
+    dec_mark = ",",
+    decimals = 0
+  ) |> 
+  fmt_percent(
+    columns = var_perc,
+    sep_mark = ".",
+    dec_mark = ",",
+    decimals = 2
+  ) |> 
+  data_color(
+    columns = var_perc,
+    palette = "RdBu",
+    domain = c(-0.15, 0.15),
+    reverse = T
+  ) |> 
+  cols_label(
+    var = "Variação",
+    var_perc = "Variação percentual",
+    ano_2021 = "2021",
+    ano_2022 = "2022"
+  )
+
+gt_regiao
+```
+
+# Óbitos por unidades da federação
+
+```{r}
+
+#| column: page
+#| fig-width: 9
+
+mortes_uf <- rtdeaths_tbl |> 
+  count(ano_ocorrencia, nome_uf_ocor) |> 
+  filter(ano_ocorrencia > 2020)
+
+var_uf <- mortes_uf |> 
+  pivot_wider(
+    names_from = ano_ocorrencia,
+    values_from = n,
+    names_prefix = "ano_"
+  ) |> 
+  drop_na() |> 
+  mutate(
+    var = ano_2022 - ano_2021, 
+    var_perc = var / ano_2021,
+    nome_uf_ocor = fct_reorder(nome_uf_ocor, var_perc),
+    signal = if_else(var_perc > 0, "up", "down")
+  )
+
+p1 <- ggplot(var_uf, aes(x = nome_uf_ocor, y = ano_2021)) +
+  geom_col(fill = onsv_palette$blue) +
+  geom_text(aes(label = ano_2021), nudge_y = 300, size = 3, color = "grey10") +
+  coord_flip() + 
+  theme_onsv(base_size = 10) +
+  theme(
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank()
+  ) +
+  labs(x = NULL, y = NULL) +
+  scale_y_continuous(limits = c(0, 5300))
+
+p2 <- ggplot(var_uf, aes(x = nome_uf_ocor, y = ano_2022)) +
+  geom_col(fill = onsv_palette$blue) +
+  geom_text(aes(label = ano_2022), nudge_y = 300, size = 3, color = "grey10") +
+  coord_flip() + 
+  theme_onsv(base_size = 10) +
+  theme(
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    axis.text.y = element_blank()
+  ) +
+  labs(x = NULL, y = NULL) +
+  scale_y_continuous(limits = c(0, 5300))
+
+p3 <- ggplot(var_uf, aes(x = nome_uf_ocor, y = var_perc, fill = signal)) +
+  geom_col() +
+  coord_flip() + 
+  theme_onsv(base_size = 10) +
+  theme(
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    axis.text.y = element_blank(),
+    legend.position = "none"
+  ) +
+  labs(x = NULL, y = NULL) +
+  scale_y_continuous(
+    limits = c(-0.25, 0.25),
+    labels = scales::percent
+  ) +
+  scale_fill_manual(
+    values = c("up" = onsv_palette$red, "down" = onsv_palette$green)
+  )
+
+subplot(
+  ggplotly(p1),
+  ggplotly(p2),
+  ggplotly(p3)
+) |> 
+  layout(
+    annotations = list(
+      list(
+        x = 0.15,  
+        y = 1,  
+        text = "2021",  
+        xref = "paper",  
+        yref = "paper",  
+        xanchor = "center",  
+        yanchor = "bottom",  
+        showarrow = FALSE 
+      ),
+      list(
+        x = 0.5,  
+        y = 1,  
+        text = "2022",  
+        xref = "paper",  
+        yref = "paper",  
+        xanchor = "center",  
+        yanchor = "bottom",  
+        showarrow = FALSE 
+      ),
+      list(
+        x = 0.85,  
+        y = 1,  
+        text = "Variação percentual",  
+        xref = "paper",  
+        yref = "paper",  
+        xanchor = "center",  
+        yanchor = "bottom",  
+        showarrow = FALSE
+      )
+    )
+  )
+```
+
+# Óbitos por modal das vítimas
+
+# Pirâmide etária das vítimas
