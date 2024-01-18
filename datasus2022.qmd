@@ -29,9 +29,11 @@ rtdeaths_tbl <- as_tibble(rtdeaths)
 
 # Introdução
 
-No dia 27 de dezembro de 2023 o Ministério da Saúde disponibilizou a base de dados consolidada do Sistema de Informações de Mortes (SIM) para o ano de 2022. Assim, o presente documento apresenta uma análise dos óbitos no trânsito no Brasil, com foco na evolução desse cenário entre 2021 e 2022.
+No dia 27 de dezembro de 2023 o Ministério da Saúde disponibilizou a base de dados consolidada do Sistema de Informações de Mortes (SIM) para o ano de 2022. Assim, o presente documento apresenta uma análise dos óbitos no trânsito no Brasil, com foco na evolução desse cenário entre 2021 e 2022. Os cálculos dos resultados apresentados aqui podem ser consultados no repositório do Observatório: [github.com/ONSV/analise-datasus-2022](https://github.com/ONSV/analise-datasus-2022)
 
 # Cenário brasileiro
+
+A quantidade de óbitos anuais no trânsito brasileiro cresceu novamente, porém com uma quantidade bem reduzida. Em 2022, o Brasil apresentou um número de **33.894** óbitos no trânsito, um **aumento de 81 óbitos** em comparação com os dados de 2021, o que representa uma variação percentual de **0,24%**. Os gráficos a seguir apresentam a quantidade absoluta de óbitos por ano no Brasil e a variação percetual entre os anos.
 
 ```{r}
 
@@ -89,6 +91,8 @@ p2
 
 # Óbitos por regiões
 
+Considerando as macroregiões do Brasil, o **Norte** apresentou o **maior aumento percentual** de óbitos no trânsito, atingindo **7,61%**. Em ordem decrescente, segue a Região **Sul** com um aumento de **2,54**, Região **Centro-Oeste** com **2,16%** e Região **Nordeste** com aumento de **0,26%**. Apenas a Região **Sudeste** apresentou uma redução nos números de óbitos no trânsito, com uma variação de **-3,73%.**
+
 ```{r}
 var_regiao <- rtdeaths_tbl |> 
   count(ano_ocorrencia, nome_regiao_ocor) |> 
@@ -133,6 +137,18 @@ gt_regiao
 
 # Óbitos por unidades da federação
 
+Em relação aos óbitos no trânsito por unidades da federação, os locais que apresentaram os **maiores aumentos percentuais** na quantidade de óbitos entre 2021 e 2022 foram:
+
+-   Roraima: 23%;
+-   Distrito Federal: 13%;
+-   Pará: 9%.
+
+Por outro lado, as unidades que mais apresentaram **reduções** na quantidade de óbitos no trânsito foram:
+
+-   Rio Grande do Norte: -11%;
+-   Alagoas: -10%;
+-   São Paulo: -7%
+
 ```{r}
 
 #| column: page
@@ -153,12 +169,16 @@ var_uf <- mortes_uf |>
     var = ano_2022 - ano_2021, 
     var_perc = var / ano_2021,
     nome_uf_ocor = fct_reorder(nome_uf_ocor, var_perc),
-    signal = if_else(var_perc > 0, "up", "down")
+    signal = if_else(var_perc > 0, "up", "down"),
+    text_2021 = glue::glue("{nome_uf_ocor} (2021): {ano_2021}"),
+    text_2022 = glue::glue("{nome_uf_ocor} (2022): {ano_2022}"),
+    text_var = glue::glue(
+      "{nome_uf_ocor}: {scales::percent(var_perc, accuracy = 0.01, decimal.mark = ',')}"
+    )
   )
 
 p1 <- ggplot(var_uf, aes(x = nome_uf_ocor, y = ano_2021)) +
-  geom_col(fill = onsv_palette$blue) +
-  geom_text(aes(label = ano_2021), nudge_y = 300, size = 3, color = "grey10") +
+  geom_col(fill = onsv_palette$blue, aes(text = text_2021)) +
   coord_flip() + 
   theme_onsv(base_size = 10) +
   theme(
@@ -169,8 +189,7 @@ p1 <- ggplot(var_uf, aes(x = nome_uf_ocor, y = ano_2021)) +
   scale_y_continuous(limits = c(0, 5300))
 
 p2 <- ggplot(var_uf, aes(x = nome_uf_ocor, y = ano_2022)) +
-  geom_col(fill = onsv_palette$blue) +
-  geom_text(aes(label = ano_2022), nudge_y = 300, size = 3, color = "grey10") +
+  geom_col(fill = onsv_palette$blue, aes(text = text_2022)) +
   coord_flip() + 
   theme_onsv(base_size = 10) +
   theme(
@@ -182,7 +201,7 @@ p2 <- ggplot(var_uf, aes(x = nome_uf_ocor, y = ano_2022)) +
   scale_y_continuous(limits = c(0, 5300))
 
 p3 <- ggplot(var_uf, aes(x = nome_uf_ocor, y = var_perc, fill = signal)) +
-  geom_col() +
+  geom_col(aes(text = text_var)) +
   coord_flip() + 
   theme_onsv(base_size = 10) +
   theme(
@@ -201,9 +220,9 @@ p3 <- ggplot(var_uf, aes(x = nome_uf_ocor, y = var_perc, fill = signal)) +
   )
 
 subplot(
-  ggplotly(p1),
-  ggplotly(p2),
-  ggplotly(p3)
+  ggplotly(p1, tooltip = "text"),
+  ggplotly(p2, tooltip = "text"),
+  ggplotly(p3, tooltip = "text")
 ) |> 
   layout(
     annotations = list(
@@ -243,4 +262,164 @@ subplot(
 
 # Óbitos por modal das vítimas
 
+Considerando o modo de transporte em que a vítima se encontrava durante o sinistro, os modais com **maiores aumentos percentuais entre** 2021 e 2022 foram os modais:
+
+- Automóvel: 3,50%;
+- Ônibus: 1,61%;
+- Motocicleta: 0,97%;
+- Pedestre: 0,71%
+
+Os modais que apresentaram reduções foram:
+
+- Bicicleta: -2,53%;
+- Caminhão (ocupantes de transporte pesado): -4,84%
+
+O modal **Triciclo** apresentou uma redução de 11,11% e a classificação **Outros** apresentou uma redução de 3,65%.
+
+```{r}
+obitos_modais <- rtdeaths_tbl |> 
+  count(ano_ocorrencia, modal_vitima) |> 
+  filter(ano_ocorrencia > 2020) |> 
+  pivot_wider(
+    names_from = ano_ocorrencia,
+    values_from = n,
+    names_prefix = "ano_"
+  ) |> 
+  mutate(
+    var = ano_2022 - ano_2021,
+    var_perc = var / ano_2021
+  )
+
+gt_modais <- obitos_modais |>
+  arrange(-var_perc) |> 
+  gt(rowname_col = "modal_vitima") |> 
+  fmt_number(
+    columns = ano_2021:var,
+    sep_mark = ".",
+    dec_mark = ",",
+    decimals = 0
+  ) |> 
+  fmt_percent(
+    columns = var_perc,
+    sep_mark = ".",
+    dec_mark = ",",
+    decimals = 2
+  ) |> 
+  data_color(
+    columns = var_perc,
+    palette = "RdBu",
+    domain = c(-0.2, 0.2),
+    reverse = T
+  ) |> 
+  cols_label(
+    ano_2021 = "2021",
+    ano_2022 = "2022",
+    var = "Variação",
+    var_perc = "Variação percentual"
+  )
+
+gt_modais
+```
+
 # Pirâmide etária das vítimas
+
+Por fim, considerando o sexo das vítimas, em 2022 as vítimas do sexo masculino ainda são a maioria dos mortos no trânsito, representando **83%** dos óbitos. A faixa etária com a maior quantidade de mortes no trânsito, em 2022, ainda é a de 20 a 24 anos.
+
+Considerando apenas as vítimas fatais do sexo feminino, a faixa etária com um maior aumento de mortes entre 2021 e 2022 foi a acima de 75 a 79 anos, com uma variação de **46%.** A faixa etária com a maior redução foi a de 5 a 9 anos, atingindo uma variação de **-23%.**
+
+Considerando as vítimas fatais do sexo masculino, a faixa etária com o maior aumento de mortes entre 2021 e 2022 foi a de acima de 80 anos, com uma variação de **12%**. A faixa etária com a maior redução foi a de 0 a 4 anos, com uma variação de **-17%**.
+
+```{r}
+obitos_piramide <- rtdeaths_tbl |> 
+  count(ano_ocorrencia, sexo_vitima, faixa_etaria_vitima) |> 
+  filter(ano_ocorrencia > 2020) |> 
+  drop_na()
+
+tbl_piramide <- obitos_piramide |> 
+  pivot_wider(
+    names_from = c(sexo_vitima, ano_ocorrencia),
+    values_from = n,
+    names_sep = "_"
+  ) |> 
+  mutate(
+    var_fem = (Feminino_2022 - Feminino_2021) / Feminino_2021,
+    var_masc = (Masculino_2022 - Masculino_2021) / Masculino_2021
+  ) |> 
+  arrange(desc(faixa_etaria_vitima))
+
+gt_piramide <- tbl_piramide |>
+  gt(rowname_col = "faixa_etaria_vitima") |> 
+  fmt_number(
+    columns = Feminino_2021:Masculino_2022,
+    sep_mark = ".",
+    dec_mark = ",",
+    decimals = 0
+  ) |> 
+  fmt_percent(
+    columns = var_fem:var_masc,
+    sep_mark = ".",
+    dec_mark = ",",
+    decimals = 2
+  ) |> 
+  data_color(
+    columns = var_fem:var_masc,
+    palette = "RdBu",
+    domain = c(-0.5, 0.5),
+    reverse = T
+  ) |>
+  tab_spanner(
+    label = "2021",
+    columns = Feminino_2021:Masculino_2021
+  ) |> 
+  tab_spanner(
+    label = "2022",
+    columns = Feminino_2022:Masculino_2022
+  ) |> 
+  tab_spanner(
+    label = "Variação percentual",
+    columns = var_fem:var_masc
+  ) |> 
+  cols_label(
+    Feminino_2021 = "Feminino",
+    Masculino_2021 = "Masculino",
+    Feminino_2022 = "Feminino",
+    Masculino_2022 = "Masculino",
+    var_fem = "Feminino",
+    var_masc = "Masculino"
+  )
+
+gt_piramide
+```
+
+# Faixa etária e modais da vítimas
+
+Observando os óbitos com base no modal e na faixa etária das vítimas, de forma conjunta, percebe-se que a grande maioria dos óbitos ocorrem entre os ocupantes de motocicleta entre 20 e 24 anos.
+
+```{r}
+tbl_faixas_modais <- rtdeaths_tbl |> 
+  filter(ano_ocorrencia == 2022) |> 
+  count(modal_vitima, faixa_etaria_vitima, .drop = FALSE) |> 
+  drop_na() |> 
+  mutate(
+    tooltip_text = glue::glue("{modal_vitima} - {faixa_etaria_vitima}: {n}")
+  )
+
+plot_faixas_modais <- tbl_faixas_modais |> 
+  ggplot(aes(x = faixa_etaria_vitima, y = modal_vitima, fill = n)) +
+  geom_tile(aes(text = tooltip_text)) +
+  theme(
+    panel.grid = element_blank(),
+    legend.position = "none"
+  ) +
+  labs(x = NULL, y = NULL) +
+  scale_x_discrete(
+    labels = c(
+      "0-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65-69", "70-74", "75-79", "80+"
+    )
+  ) +
+  scale_fill_distiller(palette = "Blues", direction = 1) +
+  coord_fixed() +
+  geom_text(aes(label = n), size = 3, color = "grey10")
+
+ggplotly(plot_faixas_modais, tooltip = "text")
+```
