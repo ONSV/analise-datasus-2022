@@ -29,7 +29,7 @@ rtdeaths_tbl <- as_tibble(rtdeaths)
 
 # Introdução
 
-No dia 27 de dezembro de 2023 o Ministério da Saúde disponibilizou a base de dados consolidada do Sistema de Informações de Mortes (SIM) para o ano de 2022. Assim, o presente documento apresenta uma análise dos óbitos no trânsito no Brasil, com foco na evolução desse cenário entre 2021 e 2022. Os cálculos dos resultados apresentados aqui podem ser consultados no repositório do Observatório: [github.com/ONSV/analise-datasus-2022](https://github.com/ONSV/analise-datasus-2022)
+No dia 27 de dezembro de 2023 o Ministério da Saúde disponibilizou a base de dados consolidada do Sistema de Informações de Mortes (SIM) para o ano de 2022. Assim, o presente documento apresenta uma análise dos óbitos no trânsito no Brasil, com foco na evolução desse cenário entre 2021 e 2022. Os cálculos dos resultados apresentados aqui podem ser consultados no repositório do Observatório: [github.com/ONSV/analise-datasus-2022](https://github.com/ONSV/analise-datasus-2022){target="_blank"}
 
 # Cenário brasileiro
 
