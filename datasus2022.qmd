@@ -407,11 +407,12 @@ tbl_faixas_modais <- rtdeaths_tbl |>
 plot_faixas_modais <- tbl_faixas_modais |> 
   ggplot(aes(x = faixa_etaria_vitima, y = modal_vitima, fill = n)) +
   geom_tile(aes(text = tooltip_text)) +
+  theme_onsv(base_size = 8) +
   theme(
     panel.grid = element_blank(),
     legend.position = "none"
   ) +
-  labs(x = NULL, y = NULL) +
+  labs(x = "Faixa etária", y = NULL) +
   scale_x_discrete(
     labels = c(
       "0-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65-69", "70-74", "75-79", "80+"
