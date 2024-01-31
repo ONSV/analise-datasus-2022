@@ -7,8 +7,9 @@ format:
     fig-height: 3.7
     fig-dpi: 300
 author: 
-  - Pedro Augusto Borges dos Santos
-  - João Pedro Melani Saraiva
+  - name: Pedro Augusto Borges dos Santos
+    affiliations : Observatório Nacional de Segurança Viária
+  - name: João Pedro Melani Saraiva
 date: last-modified
 ---
 
